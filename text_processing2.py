@@ -69,16 +69,19 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = ""
-    upper_flag = False
-    for char in underscore_str.lower().strip("_") :
-        if char is "_" :
-            upper_flag = True
-            continue
 
-        camelcase_str += char.upper() if upper_flag else char
+    if "_" not in underscore_str.strip("_") :
+        return underscore_str.strip("_")
+
+    else :
+        camelcase_str = ""
         upper_flag = False
+        for char in underscore_str.strip("_") :
+            if char is "_" :
+                upper_flag = True
+                continue
 
-    return camelcase_str
+            camelcase_str += char.upper() if upper_flag else char.lower()
+            upper_flag = False
 
-print(to_camel_case("__EXAMPLE__NAME__"))
+        return camelcase_str
